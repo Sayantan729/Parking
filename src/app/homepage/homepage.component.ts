@@ -18,10 +18,7 @@ export class HomepageComponent implements OnInit {
 
   constructor(private config: NgbCarouselConfig,private router:Router,public dialog:MatDialog) {
     if(localStorage.getItem('email'))
-    {
-      this.router.navigate(['dashboard']);
-
-    }
+    this.router.navigate(['dashboard']);
 
  
 

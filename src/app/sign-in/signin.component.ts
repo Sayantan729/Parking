@@ -17,7 +17,7 @@ export class SigninComponent implements OnInit {
   passwordMismatch:boolean=false;
 
   constructor(fb: FormBuilder, public dialog: MatDialog,private database:DatabaseService,private router:Router) { 
-    if(!localStorage.getItem('email')===null)
+    if(localStorage.getItem('email'))
     this.router.navigate(['dashboard']);
     
     this.form2 = fb.group({
