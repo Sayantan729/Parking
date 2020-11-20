@@ -50,6 +50,7 @@ export class SearchmapComponent implements OnInit {
     private bookingService: BookingService,
     private router: Router
   ) {
+    
     this.bookingService.bookingDetails.subscribe((data) => {
       if (data) {
         this.bookingDetails = JSON.parse(JSON.stringify(data));
@@ -131,6 +132,7 @@ export class SearchmapComponent implements OnInit {
         fullscreenControl: false,
       }
     );
+    document.getElementById("customer-parking-search-map").scrollIntoView();
     this.map.controls[google.maps.ControlPosition.TOP_CENTER].push(
       document.getElementById('customer-search-map-text')
     );
@@ -271,6 +273,7 @@ export class SearchmapComponent implements OnInit {
         spot.marker.setAnimation(google.maps.Animation.BOUNCE);
 
         this.selectedSpotData = JSON.parse(JSON.stringify(spot.data));
+        document.getElementById('customer-spot-details').scrollIntoView();
         //console.log(this.selectedSpotData);
       });
     });}

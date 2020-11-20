@@ -33,6 +33,7 @@
           class="list-group-item list-group-item-action"
           *ngFor="let result of searchResults"
           (click)="locateDestination(result)"
+          style="cursor: pointer;"
         >
           <p *ngIf="result.name" class="search-heading">{{ result.name }}</p>
           <p [class]="result.name ? 'search-sub-heading' : 'search-heading'">

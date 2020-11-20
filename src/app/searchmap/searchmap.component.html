@@ -39,6 +39,7 @@
               class="list-group-item list-group-item-action"
               *ngFor="let result of searchResults"
               (click)="locateDestination(result)"
+              style="cursor: pointer;"
             >
               <p *ngIf="result.name" class="search-heading">
                 {{ result.name }}
@@ -114,7 +115,7 @@
 
       padding: 20px;
     "
-    class="col col-lg-3 pt-4"
+    class="col col-lg-3 pt-4 text-center text-lg-left"
   >
     <div *ngIf="!selectedSpotData" style="color: gray; padding-top: 50%">
       <div style="text-align: center; font-size: xx-large">
@@ -152,7 +153,8 @@
         <div style="font-size: 1.5em; font-weight: bold; margin-bottom: 10px">
           Spot Handler
         </div>
-        <div
+        <div class="w-100 row m-0 justify-content-center">
+          <div
           style="
             display: flex;
             align-items: center;
@@ -161,6 +163,7 @@
             border-radius: 5px;
             box-shadow: 0px 0px 3px black;
           "
+          class="col col-12 col-sm-8 col-lg-12"
         >
           <img
             src="assets/images/handler.png"
@@ -177,6 +180,9 @@
             </div>
           </div>
         </div>
+
+        </div>
+
       </div>
 
       <div style="font-size: 1.5em">
