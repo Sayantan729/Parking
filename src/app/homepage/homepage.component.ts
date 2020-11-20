@@ -17,15 +17,16 @@ export class HomepageComponent implements OnInit {
   showNavigationIndicators = true;
 
   constructor(private config: NgbCarouselConfig,private router:Router,public dialog:MatDialog) {
+    if(localStorage.getItem('email'))
+    {
+      this.router.navigate(['dashboard']);
+
+    }
 
  
 
     
-    // if(localStorage.getItem('email'))
-    // {
-    //   router.navigate(['dashboard']);
-
-    // }
+    
   }
 
   ngOnInit(): void {
@@ -34,6 +35,7 @@ export class HomepageComponent implements OnInit {
     this.config.interval = 2000;
     this.config.keyboard = true;
     this.config.pauseOnHover = true;
+    
   }
 
   openAbout(){
