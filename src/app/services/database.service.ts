@@ -90,4 +90,9 @@ export class DatabaseService {
 
   }
 
+  cancelBooking(booking)
+  {
+    return this.dataService.postData(`${this.appData.appData.databaseApi}deletebooking.php`,booking);
+  }
+
 }

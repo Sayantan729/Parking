@@ -1,10 +1,12 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ActiveBookingService } from '../services/active-booking.service';
 import { DatabaseService } from '../services/database.service';
 import { QrCodeService } from '../services/qr-code.service';
 import { AppUtility } from '../utility/utility';
+import { ConfirmCancelComponent } from './confirm-cancel/confirm-cancel.component';
 
 @Component({
   selector: 'app-active-booking-details',
@@ -16,8 +18,9 @@ export class ActiveBookingDetailsComponent implements OnInit,OnDestroy {
   bookingId:any;
   booking:any;
   subscription:Subscription;
+  fromTime:string;
 
-  constructor(private activeBooking:ActiveBookingService,private router:Router,private database:DatabaseService,private qr:QrCodeService) {
+  constructor(private activeBooking:ActiveBookingService,private router:Router,private database:DatabaseService,private qr:QrCodeService,private dialog:MatDialog) {
     this.subscription=this.activeBooking.activeBooking.subscribe((data)=>{
       if(data)
       {
@@ -28,6 +31,7 @@ export class ActiveBookingDetailsComponent implements OnInit,OnDestroy {
             console.log(data);
             this.booking=JSON.parse(JSON.stringify(data));
             this.booking.cost=AppUtility.dateDifference(new Date(this.booking.fromtime),new Date(this.booking.totime))*parseInt(this.booking.cost);
+            this.fromTime=this.booking.fromtime;
             this.booking.fromtime=AppUtility.formatDate(new Date(this.booking.fromtime));
           this.booking.totime=AppUtility.formatDate(new Date(this.booking.totime));
           
@@ -66,6 +70,10 @@ export class ActiveBookingDetailsComponent implements OnInit,OnDestroy {
     this.qr.setQR({"bId":this.bookingId,"exit":1});
     this.router.navigate(['active-booking-details/qr-page']);
 
+  }
+  cancelBooking()
+  {
+    this.dialog.open(ConfirmCancelComponent,{"data":{"bId":this.bookingId,"from":this.fromTime}});
   }
 
 }

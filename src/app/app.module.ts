@@ -65,6 +65,9 @@ import { RegisteredSpotDetailsComponent } from './registered-spot-details/regist
 import { PasswordRulesComponent } from './password-rules/password-rules.component';
 import { PreviousBookingDetailsComponent } from './previous-booking-details/previous-booking-details.component';
 import { ErrorNotFoundComponent } from './error-not-found/error-not-found.component';
+import { ConfirmCancelComponent } from './active-booking-details/confirm-cancel/confirm-cancel.component';
+import { CancelSuccessComponent } from './active-booking-details/cancel-success/cancel-success.component';
+import { CancelFailComponent } from './active-booking-details/cancel-fail/cancel-fail.component';
 
 export function playerFactory() {
   return player;
@@ -123,7 +126,16 @@ export function playerFactory() {
     PreviousBookingDetailsComponent,
 
 
-    ErrorNotFoundComponent
+    ErrorNotFoundComponent,
+
+
+    ConfirmCancelComponent,
+
+
+    CancelSuccessComponent,
+
+
+    CancelFailComponent
 
     
 
