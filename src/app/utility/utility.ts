@@ -39,6 +39,12 @@ export class AppUtility
     return encrypted.toString();
 
   }
+  static AESDecrypt(text:string,key:string):string
+  {
+    let decrypted=Crypto.AES.decrypt(text,key);
+    return decrypted.toString();
+
+  }
 
   static dateDifference(date1,date2)
   {

@@ -1,0 +1,62 @@
+<form style="margin-top: 25px" [formGroup]="formR">
+    <div style="font-size: 1.5em; font-weight: bold">Edit spot details</div>
+    <div style="color: gray; margin-bottom: 20px">
+      <i
+        >Click on the slot type you want to edit, and enter the new details</i
+      >
+    </div>
+    <div>
+      <mat-checkbox [formControl]="hasTwoWheelers" style="font-size: 1.2em; font-weight: 500" (click)="changeTwoWheelers(!formR.value.hasTwoWheelers)"
+        >Two Wheelers</mat-checkbox
+      >
+      <div *ngIf="formR.value.hasTwoWheelers">
+        <div class="form-group">
+            <label for="edit-two-num">Number of slots</label>
+            <input type="text" class="form-control" [class.is-invalid]="twoWheelerNum.touched && twoWheelerNum.invalid" id="edit-two-num" formControlName="twoWheelerNum" >
+            <i style="color: grey;">Cannot be less than 5</i>
+            <div *ngIf="twoWheelerNum.touched && twoWheelerNum.invalid">
+              <small *ngIf="twoWheelerNum.errors.required" class="form-error">Cannot be empty</small>
+              <small *ngIf="!twoWheelerNum.errors.required && twoWheelerNum.errors.formatNotProper" class="form-error">Please enter only numbers</small>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="edit-two-cost">Cost per hour per slot (&#x20b9;)</label>
+            <input type="text" class="form-control" [class.is-invalid]="twoWheelerCost.touched && twoWheelerCost.invalid" id="edit-two-cost" formControlName="twoWheelerCost">
+            <div *ngIf="twoWheelerCost.touched && twoWheelerCost.invalid">
+              <small *ngIf="twoWheelerCost.errors.required" class="form-error">Cannot be empty</small>
+              <small *ngIf="!twoWheelerCost.errors.required && twoWheelerCost.errors.formatNotProper" class="form-error">Please enter only numbers</small>
+            </div>
+            
+          </div>
+      </div>
+    </div>
+
+    <div>
+      <mat-checkbox [formControl]="hasFourWheelers" style="font-size: 1.2em; font-weight: 500" (click)="changeFourWheelers(!formR.value.hasFourWheelers)"
+        >Four Wheelers</mat-checkbox
+      >
+      <div *ngIf="formR.value.hasFourWheelers">
+        <div class="form-group">
+            <label for="edit-four-num">Number of slots</label>
+            <input type="text" class="form-control" [class.is-invalid]="fourWheelerNum.touched && fourWheelerNum.invalid" id="edit-four-num" formControlName="fourWheelerNum">
+            <i style="color: grey;">Cannot be less than 5</i>
+            <div *ngIf="fourWheelerNum.touched && fourWheelerNum.invalid">
+              <small *ngIf="fourWheelerNum.errors.required" class="form-error">Cannot be empty</small>
+              <small *ngIf="!fourWheelerNum.errors.required && fourWheelerNum.errors.formatNotProper" class="form-error">Please enter only numbers</small>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="edit-four-cost">Cost per hour per slot (&#x20b9;)</label>
+            <input type="text" class="form-control" [class.is-invalid]="fourWheelerCost.touched && fourWheelerCost.invalid" id="edit-four-cost" formControlName="fourWheelerCost">
+            <div *ngIf="fourWheelerCost.touched && fourWheelerCost.invalid">
+              <small *ngIf="fourWheelerCost.errors.required" class="form-error">Cannot be empty</small>
+              <small *ngIf="!fourWheelerCost.errors.required && fourWheelerCost.errors.formatNotProper" class="form-error">Please enter only numbers</small>
+            </div>
+            
+          </div>
+      </div>
+    </div>
+  </form>
+  <div class="w-100">
+      <button class="btn btn-secondary" [disabled]="formR.invalid" (click)="editSpot()">Submit Changes</button>
+  </div>

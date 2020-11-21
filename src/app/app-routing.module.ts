@@ -44,6 +44,8 @@ const routes: Routes = [
   {path:'dashboard/book-spots/customer-map',component:SearchmapComponent,canActivate:[AuthGuard]},
   {path:'active-booking-details',component:ActiveBookingDetailsComponent,canActivate:[AuthGuard]},
   {path:'prev-booking-details',component:PreviousBookingDetailsComponent,canActivate:[AuthGuard]},
+  {path:'registered-spot-details',component:RegisteredSpotDetailsComponent,canActivate:[AuthGuard]},
+  
  
   {path:'active-booking-details/qr-page',component:QrPageComponent,canActivate:[AuthGuard]},
   {path:'**',component:ErrorNotFoundComponent}

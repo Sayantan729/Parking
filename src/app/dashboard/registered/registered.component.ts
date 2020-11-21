@@ -1,6 +1,7 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { DatabaseService } from 'src/app/services/database.service';
 import { RegisteredSpotService } from 'src/app/services/registered-spot.service';
 
@@ -21,7 +22,7 @@ export class RegisteredComponent implements OnInit {
   owner=localStorage.getItem('email');
   spots:any[]=[];
   
-  constructor(private database:DatabaseService,private registeredSpot:RegisteredSpotService) {
+  constructor(private database:DatabaseService,private registeredSpot:RegisteredSpotService,private router:Router) {
 
   }
   ngOnInit(): void {
@@ -39,6 +40,8 @@ export class RegisteredComponent implements OnInit {
   openRegisterDetails(i)
   {
     this.registeredSpot.setSpotData(JSON.parse(JSON.stringify(this.spots[i])));
+    this.router.navigate(['registered-spot-details']);
+    
 
   }
 }

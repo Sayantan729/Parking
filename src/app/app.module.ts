@@ -68,6 +68,9 @@ import { ErrorNotFoundComponent } from './error-not-found/error-not-found.compon
 import { ConfirmCancelComponent } from './active-booking-details/confirm-cancel/confirm-cancel.component';
 import { CancelSuccessComponent } from './active-booking-details/cancel-success/cancel-success.component';
 import { CancelFailComponent } from './active-booking-details/cancel-fail/cancel-fail.component';
+import { EditSpotsDialogComponent } from './registered-spot-details/edit-spots-dialog/edit-spots-dialog.component';
+import { EditSuccessComponent } from './registered-spot-details/edit-success/edit-success.component';
+import { EditFailComponent } from './registered-spot-details/edit-fail/edit-fail.component';
 
 export function playerFactory() {
   return player;
@@ -135,7 +138,16 @@ export function playerFactory() {
     CancelSuccessComponent,
 
 
-    CancelFailComponent
+    CancelFailComponent,
+
+
+    EditSpotsDialogComponent,
+
+
+    EditSuccessComponent,
+
+
+    EditFailComponent
 
     
 

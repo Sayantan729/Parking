@@ -95,4 +95,9 @@ export class DatabaseService {
     return this.dataService.postData(`${this.appData.appData.databaseApi}deletebooking.php`,booking);
   }
 
+  editSpot(spot)
+  {
+    return this.dataService.postData(`${this.appData.appData.databaseApi}updatespot.php`,spot);
+  }
+
 }
