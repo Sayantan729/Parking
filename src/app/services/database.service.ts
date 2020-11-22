@@ -100,4 +100,9 @@ export class DatabaseService {
     return this.dataService.postData(`${this.appData.appData.databaseApi}updatespot.php`,spot);
   }
 
+  getMinRequired(spot)
+  {
+    return this.dataService.postData(`${this.appData.appData.databaseApi}getMinimumSlots.php`,spot);
+  }
+
 }

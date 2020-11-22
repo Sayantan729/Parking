@@ -1,6 +1,7 @@
 .form-error {
     font-weight: bold;
     color: rgb(220, 53, 69);
+    display: block;
   }
   
   .is-invalid {

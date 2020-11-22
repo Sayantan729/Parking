@@ -13,10 +13,11 @@
         <div class="form-group">
             <label for="edit-two-num">Number of slots</label>
             <input type="text" class="form-control" [class.is-invalid]="twoWheelerNum.touched && twoWheelerNum.invalid" id="edit-two-num" formControlName="twoWheelerNum" >
-            <i style="color: grey;">Cannot be less than 5</i>
+            <i style="color: grey;">Cannot be less than {{minTwo}}</i>
             <div *ngIf="twoWheelerNum.touched && twoWheelerNum.invalid">
               <small *ngIf="twoWheelerNum.errors.required" class="form-error">Cannot be empty</small>
-              <small *ngIf="!twoWheelerNum.errors.required && twoWheelerNum.errors.formatNotProper" class="form-error">Please enter only numbers</small>
+              <small *ngIf="!twoWheelerNum.errors.required && twoWheelerNum.errors.formatNotProper" class="form-error">Please enter only positive numbers</small>
+              <small *ngIf=" twoWheelerNum.errors.lessThanMin" class="form-error">Cannot be less than {{minTwo}}</small>
             </div>
           </div>
           <div class="form-group">
@@ -24,7 +25,7 @@
             <input type="text" class="form-control" [class.is-invalid]="twoWheelerCost.touched && twoWheelerCost.invalid" id="edit-two-cost" formControlName="twoWheelerCost">
             <div *ngIf="twoWheelerCost.touched && twoWheelerCost.invalid">
               <small *ngIf="twoWheelerCost.errors.required" class="form-error">Cannot be empty</small>
-              <small *ngIf="!twoWheelerCost.errors.required && twoWheelerCost.errors.formatNotProper" class="form-error">Please enter only numbers</small>
+              <small *ngIf="!twoWheelerCost.errors.required && twoWheelerCost.errors.formatNotProper" class="form-error">Please enter only positive numbers</small>
             </div>
             
           </div>
@@ -38,11 +39,12 @@
       <div *ngIf="formR.value.hasFourWheelers">
         <div class="form-group">
             <label for="edit-four-num">Number of slots</label>
-            <input type="text" class="form-control" [class.is-invalid]="fourWheelerNum.touched && fourWheelerNum.invalid" id="edit-four-num" formControlName="fourWheelerNum">
-            <i style="color: grey;">Cannot be less than 5</i>
+            <input type="text" class="form-control" [class.is-invalid]="fourWheelerNum.touched && fourWheelerNum.invalid" id="edit-four-num" formControlName="fourWheelerNum" >
+            <i style="color: grey;">Cannot be less than {{minFour}}</i>
             <div *ngIf="fourWheelerNum.touched && fourWheelerNum.invalid">
               <small *ngIf="fourWheelerNum.errors.required" class="form-error">Cannot be empty</small>
-              <small *ngIf="!fourWheelerNum.errors.required && fourWheelerNum.errors.formatNotProper" class="form-error">Please enter only numbers</small>
+              <small *ngIf="!fourWheelerNum.errors.required && fourWheelerNum.errors.formatNotProper" class="form-error">Please enter only positive numbers</small>
+              <small *ngIf="fourWheelerNum.errors.lessThanMin" class="form-error">Cannot be less than {{minFour}}</small>
             </div>
           </div>
           <div class="form-group">
@@ -50,7 +52,7 @@
             <input type="text" class="form-control" [class.is-invalid]="fourWheelerCost.touched && fourWheelerCost.invalid" id="edit-four-cost" formControlName="fourWheelerCost">
             <div *ngIf="fourWheelerCost.touched && fourWheelerCost.invalid">
               <small *ngIf="fourWheelerCost.errors.required" class="form-error">Cannot be empty</small>
-              <small *ngIf="!fourWheelerCost.errors.required && fourWheelerCost.errors.formatNotProper" class="form-error">Please enter only numbers</small>
+              <small *ngIf="!fourWheelerCost.errors.required && fourWheelerCost.errors.formatNotProper" class="form-error">Please enter only positive numbers</small>
             </div>
             
           </div>
