@@ -2,8 +2,10 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AppData } from 'src/app/app.details';
 import { DatabaseService } from 'src/app/services/database.service';
 import { RegisteredSpotService } from 'src/app/services/registered-spot.service';
+import { AppUtility } from 'src/app/utility/utility';
 
 @Component({
   selector: 'app-registered',
@@ -19,10 +21,10 @@ import { RegisteredSpotService } from 'src/app/services/registered-spot.service'
 })
 export class RegisteredComponent implements OnInit {
 
-  owner=localStorage.getItem('email');
+  owner=AppUtility.AESDecrypt( localStorage.getItem('email'),this.appData.appData.AESKey);
   spots:any[]=[];
   
-  constructor(private database:DatabaseService,private registeredSpot:RegisteredSpotService,private router:Router) {
+  constructor(private database:DatabaseService,private registeredSpot:RegisteredSpotService,private router:Router,private appData:AppData) {
 
   }
   ngOnInit(): void {

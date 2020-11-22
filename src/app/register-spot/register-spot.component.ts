@@ -1,7 +1,9 @@
 import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { AppData } from '../app.details';
 import { SearchServiceService } from '../services/search-service.service';
+import { AppUtility } from '../utility/utility';
 import { CommonValidators } from '../validators/common.validators';
 import { NumValidators } from '../validators/num.validators';
 import { SpotRegCheckBoxValidators } from '../validators/spot-reg-checkbox.validators';
@@ -25,12 +27,13 @@ export class RegisterSpotComponent implements OnInit {
   selectedSpot: any;
 
   
-  owner=localStorage.getItem('email');
+  owner=AppUtility.AESDecrypt( localStorage.getItem('email'),this.appData.appData.AESKey);
 
   formR:FormGroup;
 
   constructor(
     private searchService: SearchServiceService,
+    private appData:AppData,
 
     private renderer: Renderer2,
     private dialog: MatDialog

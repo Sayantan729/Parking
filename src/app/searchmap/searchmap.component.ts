@@ -8,6 +8,8 @@ import { SearchServiceService } from '../services/search-service.service';
 import { SpotsUpdateService } from '../services/spots-update.service';
 import {} from "googlemaps";
 import { ConfirmBookingDialogComponent } from './confirm-booking-dialog/confirm-booking-dialog.component';
+import { AppUtility } from '../utility/utility';
+import { AppData } from '../app.details';
 
 @Component({
   selector: 'app-searchmap',
@@ -36,7 +38,7 @@ export class SearchmapComponent implements OnInit {
   totime: string;
   carNumber: string;
   carModel: string;
-  owner=localStorage.getItem('email');
+  owner=AppUtility.AESDecrypt( localStorage.getItem('email'),this.appData.appData.AESKey);
 
   oldData: string;
   newData: string;
@@ -48,7 +50,8 @@ export class SearchmapComponent implements OnInit {
     private dialog: MatDialog,
     private spotsUpdate: SpotsUpdateService,
     private bookingService: BookingService,
-    private router: Router
+    private router: Router,
+    private appData:AppData
   ) {
     
     this.bookingService.bookingDetails.subscribe((data) => {

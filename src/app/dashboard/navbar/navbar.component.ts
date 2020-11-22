@@ -3,6 +3,8 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { DatabaseService } from 'src/app/services/database.service';
+import { AppUtility } from 'src/app/utility/utility';
+import { AppData } from 'src/app/app.details';
 
 @Component({
   selector: 'app-navbar',
@@ -34,12 +36,12 @@ export class HelpComponent {
     type: new FormControl('',Validators.required),
     explain:new FormControl('',Validators.required)
   });
-  constructor(private database:DatabaseService,public dialogRef: MatDialogRef<HelpComponent>){}
+  constructor(private database:DatabaseService,public dialogRef: MatDialogRef<HelpComponent>,private appData:AppData){}
   ping()
   {
     console.log(this.form.value);
     
-    this.database.contactUs({"topic":this.form.value.type,"issue":this.form.value.explain,"email":localStorage.getItem('email')}).subscribe((response)=>{
+    this.database.contactUs({"topic":this.form.value.type,"issue":this.form.value.explain,"email":AppUtility.AESDecrypt( localStorage.getItem('email'),this.appData.appData.AESKey)}).subscribe((response)=>{
       response.then((data)=>{
         console.log(data);
         

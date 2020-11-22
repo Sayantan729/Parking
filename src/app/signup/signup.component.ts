@@ -6,6 +6,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { PasswordRulesComponent } from '../password-rules/password-rules.component';
 import { PasswordValidators } from '../validators/password.validators';
 import { Router } from '@angular/router';
+import { AppUtility } from '../utility/utility';
+import { AppData } from '../app.details';
 
 @Component({
   selector: 'app-signup',
@@ -20,6 +22,7 @@ export class SignupComponent implements OnInit {
   otpOk:boolean=false;
   emailAddr:string="";
   verifyClicked:boolean=false;
+  passwordVisible:boolean=false;
   
 
   form = new FormGroup({
@@ -42,7 +45,7 @@ export class SignupComponent implements OnInit {
     ])
   });
 
-  constructor(private database:DatabaseService,private dialog:MatDialog,private router:Router) {
+  constructor(private database:DatabaseService,private dialog:MatDialog,private router:Router,private appData:AppData) {
     if(localStorage.getItem('email'))
     router.navigate(['dashboard']);
    }
@@ -125,7 +128,7 @@ export class SignupComponent implements OnInit {
       response.then((data)=>{
         if(data.Status=='Inserted')
         {
-          localStorage.setItem('email',this.emailAddr);
+          localStorage.setItem('email',AppUtility.AESEncrypt(this.emailAddr,this.appData.appData.AESKey));
           this.router.navigate(['dashboard']);
           
         }
@@ -138,6 +141,12 @@ export class SignupComponent implements OnInit {
   {
 
     this.dialog.open(PasswordRulesComponent);
+
+  }
+
+  togglePassword()
+  {
+    this.passwordVisible=!this.passwordVisible;
 
   }
 

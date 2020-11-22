@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AppData } from 'src/app/app.details';
 import { ActiveBookingService } from 'src/app/services/active-booking.service';
 import { DatabaseService } from 'src/app/services/database.service';
 import { AppUtility } from 'src/app/utility/utility';
@@ -11,10 +12,13 @@ import { AppUtility } from 'src/app/utility/utility';
 })
 export class ActiveComponent implements OnInit {
   bookings:any[];
-  owner=localStorage.getItem('email');
+  owner=AppUtility.AESDecrypt( localStorage.getItem('email'),this.appData.appData.AESKey);
+  
+  
 
-  constructor(private database:DatabaseService,private activeBooking:ActiveBookingService,private router:Router) {
+  constructor(private database:DatabaseService,private activeBooking:ActiveBookingService,private router:Router,private appData:AppData) {
     this.bookings=[];
+    
 
    }
 

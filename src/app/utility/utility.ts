@@ -42,7 +42,7 @@ export class AppUtility
   static AESDecrypt(text:string,key:string):string
   {
     let decrypted=Crypto.AES.decrypt(text,key);
-    return decrypted.toString();
+    return decrypted.toString(Crypto.enc.Utf8);
 
   }
 

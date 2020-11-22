@@ -4,6 +4,8 @@ import { FormBuilder, ValidationErrors, Validators, FormGroup } from '@angular/f
 import { DialogPasswordComponent } from '../dialog-password/dialog-password.component';
 import { DatabaseService } from '../services/database.service';
 import { Router } from '@angular/router';
+import { AppUtility } from '../utility/utility';
+import { AppData } from '../app.details';
 
 @Component({
   selector: 'app-signin',
@@ -16,7 +18,7 @@ export class SigninComponent implements OnInit {
   emailNotRegistered:boolean=false;
   passwordMismatch:boolean=false;
 
-  constructor(fb: FormBuilder, public dialog: MatDialog,private database:DatabaseService,private router:Router) { 
+  constructor(fb: FormBuilder, public dialog: MatDialog,private database:DatabaseService,private router:Router,private appData:AppData) { 
     if(localStorage.getItem('email'))
     this.router.navigate(['dashboard']);
     
@@ -58,7 +60,7 @@ export class SigninComponent implements OnInit {
         this.passwordMismatch=true;
         else if(data.Status=='Success')
         {
-          localStorage.setItem('email',data.uEmail);
+          localStorage.setItem('email',AppUtility.AESEncrypt(data.uEmail,this.appData.appData.AESKey));
           this.router.navigate(['dashboard']);
 
         }

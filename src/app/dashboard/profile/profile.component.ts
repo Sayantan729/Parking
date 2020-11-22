@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { AppData } from 'src/app/app.details';
+import { AppUtility } from 'src/app/utility/utility';
 
 @Component({
   selector: 'app-profile',
@@ -13,11 +15,11 @@ export class ProfileComponent implements OnInit {
   array3;
   array4;
   c;
-  post = {"email":localStorage.getItem('email')};
+  post = {"email":AppUtility.AESDecrypt( localStorage.getItem('email'),this.appData.appData.AESKey)};
 
   vehicles = ["#","Car Type","Car Model","Car Number","#"]
-  constructor(public http:HttpClient) { 
-    this.http.post("https://war-ball.000webhostapp.com/getuserdetails.php",JSON.stringify(this.post)).subscribe(response => {this.array1 = response;console.log(this.array1)})
+  constructor(public http:HttpClient,private appData:AppData) { 
+    this.http.post(`${this.appData.appData.databaseApi}getuserdetails.php`,JSON.stringify(this.post)).subscribe(response => {this.array1 = response;console.log(this.array1)})
     // this.http.post("https://war-ball.000webhostapp.com/getspotlistrenter.php",JSON.stringify(this.post)).subscribe(response => {this.array2 = response;console.log(this.array2)})
     // this.http.post("https://war-ball.000webhostapp.com/getactivebookinglist.php",JSON.stringify(this.post)).subscribe(response => {this.array3 = response;console.log(this.array3)})
     // this.http.post("https://war-ball.000webhostapp.com/getpreviousbookinglist.php",JSON.stringify(this.post)).subscribe(response => {this.array4 = response;console.log(this.array4)})
@@ -25,13 +27,13 @@ export class ProfileComponent implements OnInit {
   }
 
   deleteVehicle(number: any) {
-    return this.http.post("https://war-ball.000webhostapp.com/deleteVehicle.php",JSON.stringify({"number":number})).subscribe(response => {console.log(response);this.http.post("https://war-ball.000webhostapp.com/getuserdetails.php",JSON.stringify(this.post)).subscribe(response => {this.array1 = response;console.log(this.array1)})});
+    return this.http.post(`${this.appData.appData.databaseApi}deleteVehicle.php`,JSON.stringify({"number":number})).subscribe(response => {console.log(response);this.http.post(`${this.appData.appData.databaseApi}getuserdetails.php`,JSON.stringify(this.post)).subscribe(response => {this.array1 = response;console.log(this.array1)})});
   }
 
 
 
   ngOnInit(): void {
-    throw new Error('Method not implemented.');
+    
   }
 
 }

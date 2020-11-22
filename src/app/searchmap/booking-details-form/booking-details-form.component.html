@@ -253,6 +253,7 @@ min-height: calc(100vh);"
           [min]="timeNow"
           [selectMode]="'rangeFrom'"
           [(ngModel)]="selectedMoments"
+          style="cursor: pointer;"
         />
         <div class="input-group-append">
           <owl-date-time
@@ -278,8 +279,10 @@ min-height: calc(100vh);"
           readonly
           [owlDateTime]="toDatePicker"
           [owlDateTimeTrigger]="toDatePicker"
+          [min]="timeNow"
           [selectMode]="'rangeTo'"
           [(ngModel)]="selectedMoments"
+          style="cursor: pointer;"
         />
         <div class="input-group-append">
           <owl-date-time
