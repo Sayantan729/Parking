@@ -104,6 +104,7 @@
     grid-template-columns: auto auto auto;
     column-gap: 5%;
     row-gap: 15%;
+    max-height: calc(90vh);
   }
 
   .content:hover{
@@ -118,7 +119,9 @@
     padding: 5%;
     background-color: #a8d0e6;
     color: #24305E;
-    width: 100%;
+    
+    
+    
     
     transition: all 1s;
     
@@ -141,14 +144,23 @@
 
   @media screen and (max-width: 480px){
     .content-container {
-      display: grid;
-      grid-template-columns: auto;
+      display: block;
+      /* grid-template-columns: auto;
       column-gap: 0%;
-      row-gap: 5%;
+      row-gap: 5%; */
       min-height: calc(80vh);
       top: 5%;
       
     }
+
+    .content
+    {
+      margin-bottom: 50px;
+    }
+
+    
+
+    
     
     
     .address p {
