@@ -9,6 +9,12 @@ background-position: center;
 background-repeat: no-repeat;">
 <div class="w-100 row m-0 d-flex justify-content-center pt-5" style="background-color: rgba(0, 0, 0, 0.651);min-height: calc(90vh);">
   <div class="col-12 col-lg-9 text-center text-lg-left" >
+    <div *ngIf="searching" style="padding: 3em;font-size: 2em;color: grey;background-color: white;border-radius: 10px;">
+      <div class="w-25 mx-auto"><ng-lottie [options]="animOptions" ></ng-lottie></div>
+      <div class="text-center">Fetching...</div>
+  
+    </div>
+    <div *ngIf="!searching && !spots.length" class="text-center " style="padding: 3em;font-size: 2em;color: grey;background-color: white;border-radius: 10px;">No spots registered as of now</div>
     <div *ngFor="let spot of spots;let i=index" style="background-color: white;padding: 5em;margin-bottom: 5em;border-radius: 15px;cursor: pointer;" (click)="openRegisterDetails(i)">
 
       <div style="font-size: 3em; font-weight: bold;padding-bottom: 10px;border-bottom: 5px solid gold;">Parking Go Spot #{{spot.spotId}}</div>

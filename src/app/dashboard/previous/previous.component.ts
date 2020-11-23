@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AnimationOptions } from 'ngx-lottie';
 import { AppData } from 'src/app/app.details';
 import { DatabaseService } from 'src/app/services/database.service';
 import { PreviousBookingService } from 'src/app/services/previous-booking.service';
@@ -14,6 +15,8 @@ export class PreviousComponent implements OnInit {
 
   bookings:any[];
   owner=AppUtility.AESDecrypt( localStorage.getItem('email'),this.appData.appData.AESKey);
+  searching:boolean;
+  animOptions:AnimationOptions={path:'assets/json-animations/loading.json'};
 
   constructor(private database:DatabaseService,private prevBooking:PreviousBookingService,private router:Router,private appData:AppData) {
     this.bookings=[];
@@ -21,8 +24,10 @@ export class PreviousComponent implements OnInit {
    }
 
   ngOnInit(): void {
+    this.searching=true;
     this.database.getPreviousBookingList({"email":this.owner}).subscribe((response)=>{
       response.then((data)=>{
+        this.searching=false;
         this.bookings.length=0;
         data.forEach((item)=>{
           

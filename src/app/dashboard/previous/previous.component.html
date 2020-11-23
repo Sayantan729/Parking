@@ -19,6 +19,12 @@
     "
   >
     <div class="col-12 col-lg-9">
+      <div *ngIf="searching" style="padding: 3em;font-size: 2em;color: grey;background-color: white;border-radius: 10px;">
+        <div class="w-25 mx-auto"><ng-lottie [options]="animOptions" ></ng-lottie></div>
+        <div class="text-center">Fetching...</div>
+
+      </div>
+      <div *ngIf="!searching && !bookings.length" class="text-center " style="padding: 3em;font-size: 2em;color: grey;background-color: white;border-radius: 10px;">No bookings completed as of now</div>
       <div style="padding: 10px">
         <div
           *ngFor="let booking of bookings;let i=index"
@@ -31,7 +37,7 @@
           "
           (click)="showDetails(i)"
         >
-          <div style="font-size: 3em" class="text-wrap">
+          <div style="font-size: 3em" class="text-wrap text-center text-lg-left">
             <i
               class="fas fa-map-marked-alt"
               style="font-size: 0.5em; margin-right: 10px"
