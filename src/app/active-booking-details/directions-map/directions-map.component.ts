@@ -20,6 +20,10 @@ export class DirectionsMapComponent implements OnInit,OnDestroy {
   footRoute:google.maps.Polyline;
   carRouteArray:any[];
   footRouteArray:any[];
+  carDist;carTime;
+  footDist;footTime;
+  pathMarker:google.maps.Marker;
+  pathInfo:google.maps.InfoWindow;
 
   constructor(private directions:DirectionsService,private router:Router,private routeService:RouteService) { 
     this.subscription=directions.activeBooking.subscribe((data)=>{
@@ -53,6 +57,7 @@ export class DirectionsMapComponent implements OnInit,OnDestroy {
     this.map.controls[google.maps.ControlPosition.LEFT_BOTTOM].push(
       document.getElementById('directions-map-legend')
     );
+    
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position: Position) => {
@@ -77,11 +82,15 @@ export class DirectionsMapComponent implements OnInit,OnDestroy {
             this.routeService.getRoute(this.currentLoc.getPosition().lat(),this.currentLoc.getPosition().lng(),this.booking.lat,this.booking.lon,"car").subscribe((response)=>{
               response.then((body)=>{
                 this.carRouteArray=JSON.parse(JSON.stringify(body.routes[0].legs[0].points));
+                this.carDist=body.routes[0].summary.lengthInMeters;
+                this.carTime=body.routes[0].summary.travelTimeInSeconds;
 
                 //console.log(this.carRoute);
                 this.routeService.getRoute(this.booking.lat,this.booking.lon,this.booking.dlat,this.booking.dlon,"pedestrian").subscribe((response)=>{
                   response.then((body)=>{
                     this.footRouteArray=JSON.parse(JSON.stringify(body.routes[0].legs[0].points));
+                    this.footDist=body.routes[0].summary.lengthInMeters;
+                this.footTime=body.routes[0].summary.travelTimeInSeconds;
 
                     this.carRouteArray=this.carRouteArray.map(item=>{return {lat:item.latitude,lng:item.longitude}});
                     if(this.carRoute)
@@ -93,7 +102,7 @@ export class DirectionsMapComponent implements OnInit,OnDestroy {
                     let line={path: "M 0,-1 0,1",
                     strokeOpacity: 1,
                     scale: 4,
-                    strokeColor:"#0288d1"
+                    strokeColor:"#ec407a"
                   }
                     this.footRoute=new google.maps.Polyline({path:this.footRouteArray,strokeOpacity:0,strokeWeight:5,map:this.map,icons:[{icon:line,offset:"0",repeat:"20px"}]});
                     let latlng=new google.maps.LatLngBounds();
@@ -102,6 +111,54 @@ export class DirectionsMapComponent implements OnInit,OnDestroy {
                     for(let i=0;i<this.footRouteArray.length;i++)
                     latlng.extend(this.footRouteArray[i]);
                     this.map.fitBounds(latlng);
+
+                    this.map.addListener("click",(event)=>{
+                      for(let x of this.carRoute.getPath().getArray())
+                      {
+                        if(google.maps.geometry.spherical.computeDistanceBetween(event.latLng,x)<=(100*(22-this.map.getZoom())))
+                        {
+                          if(this.pathInfo)
+                          this.pathInfo.close();
+                          this.pathInfo=new google.maps.InfoWindow({content:`<div class="row d-flex m-0 align-items-center" >
+                          <div class="col col-4" style="font-size:2em"><i class="fas fa-car-alt"></i></div>
+                          <div class="col col-8" style="font-size:1.7em">
+                            <div>Distance: ${this.carDist}m</div>
+                            <div>Time: ${this.carTime} sec</div>
+                          </div>
+                        </div>`})
+                        if(this.pathMarker)
+                        this.pathMarker.setMap(null);
+                        this.pathMarker=new google.maps.Marker({map:this.map,position:x,visible:false});
+                        this.pathInfo.open(this.map,this.pathMarker);
+                        break;
+
+                        }
+                      }
+
+                      for(let x of this.footRoute.getPath().getArray())
+                      {
+                        if(google.maps.geometry.spherical.computeDistanceBetween(event.latLng,x)<=(100*(22-this.map.getZoom())))
+                        {
+                          if(this.pathInfo)
+                          this.pathInfo.close();
+                          this.pathInfo=new google.maps.InfoWindow({content:`<div class="row d-flex m-0 align-items-center" >
+                          <div class="col col-4" style="font-size:2em"><i class="fas fa-walking"></i></div>
+                          <div class="col col-8" style="font-size:1.7em">
+                            <div>Distance: ${this.footDist}m</div>
+                            <div>Time: ${this.footTime} sec</div>
+                          </div>
+                        </div>`})
+                        if(this.pathMarker)
+                        this.pathMarker.setMap(null);
+                        this.pathMarker=new google.maps.Marker({map:this.map,position:x,visible:false});
+                        this.pathInfo.open(this.map,this.pathMarker);
+                        break;
+
+                        }
+                      }
+                      
+                      
+                    })
 
     
                     //console.log(this.carRoute);
@@ -128,6 +185,9 @@ export class DirectionsMapComponent implements OnInit,OnDestroy {
      
     }
   }
+
+ 
+
 
 
 
