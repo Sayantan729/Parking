@@ -71,6 +71,7 @@ import { CancelFailComponent } from './active-booking-details/cancel-fail/cancel
 import { EditSpotsDialogComponent } from './registered-spot-details/edit-spots-dialog/edit-spots-dialog.component';
 import { EditSuccessComponent } from './registered-spot-details/edit-success/edit-success.component';
 import { EditFailComponent } from './registered-spot-details/edit-fail/edit-fail.component';
+import { DirectionsMapComponent } from './active-booking-details/directions-map/directions-map.component';
 
 export function playerFactory() {
   return player;
@@ -147,7 +148,10 @@ export function playerFactory() {
     EditSuccessComponent,
 
 
-    EditFailComponent
+    EditFailComponent,
+
+
+    DirectionsMapComponent
 
     
 

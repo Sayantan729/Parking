@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ActiveBookingService } from '../services/active-booking.service';
 import { DatabaseService } from '../services/database.service';
+import { DirectionsService } from '../services/directions.service';
 import { QrCodeService } from '../services/qr-code.service';
 import { AppUtility } from '../utility/utility';
 import { ConfirmCancelComponent } from './confirm-cancel/confirm-cancel.component';
@@ -20,7 +21,7 @@ export class ActiveBookingDetailsComponent implements OnInit,OnDestroy {
   subscription:Subscription;
   fromTime:string;
 
-  constructor(private activeBooking:ActiveBookingService,private router:Router,private database:DatabaseService,private qr:QrCodeService,private dialog:MatDialog) {
+  constructor(private activeBooking:ActiveBookingService,private router:Router,private database:DatabaseService,private qr:QrCodeService,private dialog:MatDialog,private directions:DirectionsService) {
     this.subscription=this.activeBooking.activeBooking.subscribe((data)=>{
       if(data)
       {
@@ -74,6 +75,12 @@ export class ActiveBookingDetailsComponent implements OnInit,OnDestroy {
   cancelBooking()
   {
     this.dialog.open(ConfirmCancelComponent,{"data":{"bId":this.bookingId,"from":this.fromTime}});
+  }
+
+  openDirectionsMap()
+  {
+    this.directions.setBookingData(JSON.parse(JSON.stringify(this.booking)));
+    this.router.navigate(['active-booking-details/directions-map']);
   }
 
 }

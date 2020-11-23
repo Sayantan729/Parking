@@ -23,6 +23,7 @@ import { PreviousBookingDetailsComponent } from './previous-booking-details/prev
 import { RegisteredSpotDetailsComponent } from './registered-spot-details/registered-spot-details.component';
 import { ErrorNotFoundComponent } from './error-not-found/error-not-found.component';
 import { AuthGuard } from './auth/auth.guard';
+import { DirectionsMapComponent } from './active-booking-details/directions-map/directions-map.component';
 
 
 const routes: Routes = [
@@ -48,6 +49,7 @@ const routes: Routes = [
   
  
   {path:'active-booking-details/qr-page',component:QrPageComponent,canActivate:[AuthGuard]},
+  {path:'active-booking-details/directions-map',component:DirectionsMapComponent,canActivate:[AuthGuard]},
   {path:'**',component:ErrorNotFoundComponent}
 
 
