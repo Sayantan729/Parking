@@ -7,7 +7,7 @@ import { DatabaseService } from './database.service';
 })
 export class SpotsUpdateService {
   timeInterval;
-  private _spots=new BehaviorSubject([]);
+  private _spots=new BehaviorSubject(null);
 
   constructor(private database:DatabaseService) {}
 
@@ -16,7 +16,7 @@ export class SpotsUpdateService {
     return this._spots;
   }
 
-  setSpots(newSpots:any[])
+  setSpots(newSpots)
   {
     this._spots.next(newSpots);
   }

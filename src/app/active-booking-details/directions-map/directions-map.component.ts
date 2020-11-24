@@ -120,10 +120,10 @@ export class DirectionsMapComponent implements OnInit,OnDestroy {
                           if(this.pathInfo)
                           this.pathInfo.close();
                           this.pathInfo=new google.maps.InfoWindow({content:`<div class="row d-flex m-0 align-items-center" >
-                          <div class="col col-4" style="font-size:2em"><i class="fas fa-car-alt"></i></div>
+                          <div class="col col-4" style="font-size:2.3em"><i class="fas fa-car-alt"></i></div>
                           <div class="col col-8" style="font-size:1.7em">
-                            <div>Distance: ${this.carDist}m</div>
-                            <div>Time: ${this.carTime} sec</div>
+                            <div><b>Distance:</b> ${this.carDist}m</div>
+                            <div><b>Time:</b> ${this.carTime} sec</div>
                           </div>
                         </div>`})
                         if(this.pathMarker)
@@ -142,10 +142,10 @@ export class DirectionsMapComponent implements OnInit,OnDestroy {
                           if(this.pathInfo)
                           this.pathInfo.close();
                           this.pathInfo=new google.maps.InfoWindow({content:`<div class="row d-flex m-0 align-items-center" >
-                          <div class="col col-4" style="font-size:2em"><i class="fas fa-walking"></i></div>
+                          <div class="col col-4" style="font-size:2.3em"><i class="fas fa-walking"></i></div>
                           <div class="col col-8" style="font-size:1.7em">
-                            <div>Distance: ${this.footDist}m</div>
-                            <div>Time: ${this.footTime} sec</div>
+                            <div><b>Distance:</b> ${this.footDist}m</div>
+                            <div><b>Time:</b> ${this.footTime} sec</div>
                           </div>
                         </div>`})
                         if(this.pathMarker)

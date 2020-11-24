@@ -56,6 +56,11 @@ min-height: calc(100vh);"
         margin-top: 1em;
       "
     >
+    <div *ngIf="searching" style="padding: 3em;font-size: 2em;color: grey;background-color: white;border-radius: 10px;">
+      <div class="w-25 mx-auto"><ng-lottie [options]="animOptions" ></ng-lottie></div>
+      <div class="text-center">Fetching...</div>
+    </div>
+    <div *ngIf="!searching && !cars.length" class="text-center text-wrap" style="color: grey;">No vehicles previously used with this app</div>
       <div
         *ngFor="let car of cars;let i=index"
         class="row py-3 form-car-row"

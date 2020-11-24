@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { AnimationOptions } from 'ngx-lottie';
 import { AppData } from 'src/app/app.details';
 import { BookingService } from 'src/app/services/booking.service';
 import { DatabaseService } from 'src/app/services/database.service';
@@ -26,8 +27,10 @@ export class BookingDetailsFormComponent implements OnInit {
 
   enterVehicleDetails: boolean = false;
   selectedVehicle: boolean = false;
+  searching:boolean=false;
   
   cars: any[];
+  animOptions:AnimationOptions={path:'assets/json-animations/loading.json'};
 
   selectedMoments = [new Date(), new Date()];
 
@@ -47,11 +50,13 @@ export class BookingDetailsFormComponent implements OnInit {
     this.timeNow = new Date();
     this.enterVehicleDetails=false;
     this.cars = [];
+    this.searching=true;
     this.database.getCarDetails({ email: this.owner }).subscribe((response) => {
       response.then((data) => {
         console.log(data);
 
         this.cars.length = 0;
+        this.searching=false;
 
         data.forEach((car) => {
           this.cars.push(car);
