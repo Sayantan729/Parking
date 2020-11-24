@@ -17,6 +17,7 @@ export class SigninComponent implements OnInit {
   form2:FormGroup;
   emailNotRegistered:boolean=false;
   passwordMismatch:boolean=false;
+  passwordVisible=false;
 
   constructor(fb: FormBuilder, public dialog: MatDialog,private database:DatabaseService,private router:Router,private appData:AppData) { 
     if(localStorage.getItem('email'))
@@ -67,6 +68,10 @@ export class SigninComponent implements OnInit {
         
       })
     })
+  }
+  togglePassword()
+  {
+    this.passwordVisible=!this.passwordVisible;
   }
 
 }

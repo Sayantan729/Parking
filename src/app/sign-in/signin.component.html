@@ -22,7 +22,12 @@ margin: 0;">
       
       <div class="form-group">
           <label for="password">Password</label>
-          <input type="password" class="form-control" id="password" formControlName="password">
+          <div class="input-group">
+            <input [type]="passwordVisible?'text':'password'" class="form-control" id="password" formControlName="password"/>
+            <div class="input-group-append">
+              <button class="btn btn-outline-dark" type="button" id="pass-hide" (click)="togglePassword()"><i class="fas fa-eye" *ngIf="!passwordVisible"></i><i class="fas fa-eye-slash" *ngIf="passwordVisible"></i></button>
+            </div>
+          </div>
           <div *ngIf="password.touched && password.invalid" class="alert alert-danger">
               <div *ngIf="password.errors.required">Password is required</div>
               <div *ngIf="password.errors.minlength">Password should have minimum {{password.errors.minlength.requiredLength}} digits</div>
